@@ -840,6 +840,12 @@ extern "C" void RADIO_IRQHandler(void)
 
                   /* Report LL data, header included. */
                   //pLink->notifyBlePacket(rx_buffer, (int)rx_buffer[1] + 2);
+
+                  for (int i = 0; i < sizeof(rx_buffer); i++) {
+                          rx_buffer[i] = 0x11;
+                  }
+
+                  for (int i = 0; i < 2; i++) {
                   pLink->notifyNordicTapBlePacket(
                     rx_buffer,
                     (int)rx_buffer[1] + 2,
@@ -849,6 +855,7 @@ extern "C" void RADIO_IRQHandler(void)
                     0,
                     g_sniffer.conn_evt_counter
                   );
+                  }
                 }
 
                 /* Update direction. */
